@@ -24,7 +24,8 @@
         android:text="Professeur"
         android:id="@+id/buttonProfesseur"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.30"/>
+        android:layout_weight="0.30"
+        android:textColor="@color/White"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -32,7 +33,8 @@
         android:text="Eleve"
         android:id="@+id/buttonEleve"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.30"/>
+        android:layout_weight="0.30"
+        android:textColor="@color/White"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -40,5 +42,6 @@
         android:text="Famille"
         android:id="@+id/buttonFamille"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.30" />
+        android:layout_weight="0.30"
+        android:textColor="@color/White"/>
 </LinearLayout>
