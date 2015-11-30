@@ -10,4 +10,18 @@
     android:orientation="vertical"
     tools:context="com.cours_ado.coursado.espaceConnexionProfesseur">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextEmailProf"
+        android:hint="E-mail"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editTextPasswordProf"
+        android:hint="Mot de passe"/>
 </LinearLayout>
