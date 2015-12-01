@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".espaceConnexionProfesseur" />
-        <activity android:name=".listeEleve"></activity>
+
+        <activity android:name=".listeEleve" />
     </application>
 
 </manifest>
