@@ -17,7 +17,6 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
             public void onClick(View v) {
                 Intent connexionProfesseurApprouvée = new Intent(espaceConnexionProfesseur.this,choixProfesseur.class);
                 startActivity(connexionProfesseurApprouvée);
-                espaceConnexionProfesseur.this.finish();
             }
         });
     }

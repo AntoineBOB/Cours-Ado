@@ -18,8 +18,12 @@
         <activity
             android:name=".espaceConnexionProfesseur"
             android:label="@string/login_professeur" />
-        <activity android:name=".listeEleve" />
-        <activity android:name=".choixProfesseur"></activity>
+        <activity
+            android:name=".listeEleve"
+            android:label="@string/listeEleve"/>
+        <activity
+            android:name=".choixProfesseur"
+            android:label="@string/Professeur" />
     </application>
 
 </manifest>
