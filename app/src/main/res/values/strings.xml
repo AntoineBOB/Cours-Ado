@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Cours Ado</string>
+
     <string name="login_professeur">Professeur | Se connecter</string>
     <string name="Professeur">Professeur</string>
     <string name="listeEleve">Liste de vos élèves</string>
+
+    <string name="MDP">Mot de passe</string>
+    <string name="login">Se connecter</string>
+    <string name="Email">Email</string>
+    <string name="createTicket">Liste de vos élèves</string>
+    <string name="logout">Se déconnecter</string>
+
+    <string name="loginAccueil">Se connecter en tant que</string>
+    <string name="Eleve">Eleve</string>
+    <string name="Famille">Famille</string>
 </resources>

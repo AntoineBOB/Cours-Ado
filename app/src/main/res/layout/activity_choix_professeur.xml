@@ -14,7 +14,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Liste des élèves"
+        android:text="@string/listeEleve"
         android:id="@+id/buttonListeEleve"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.30"
@@ -23,7 +23,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Saisir un ticket"
+        android:text="@string/createTicket"
         android:id="@+id/buttonSaisirTicket"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.30"/>
@@ -31,7 +31,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Se déconnecter"
+        android:text="@string/logout"
         android:id="@+id/buttonDéconnexion"
         android:layout_weight="0.30"/>
 </LinearLayout>

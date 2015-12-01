@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/EmailProf"
-        android:hint="E-mail"
+        android:hint="@string/Email"
         android:layout_gravity="center_horizontal"
         android:inputType="textEmailAddress"
         android:maxLines="1"
@@ -26,14 +26,14 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/PasswordProf"
-        android:hint="Mot de passe"
+        android:hint="@string/MDP"
         android:maxLines="1"
         android:singleLine="true"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Se connecter"
+        android:text="@string/login"
         android:id="@+id/BoutonConnexionProfesseur"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"

@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="Se connecter en tant que"
+        android:text="@string/loginAccueil"
         android:id="@+id/textViewAccueilConnexion"
         android:layout_gravity="center"
         android:layout_marginTop="10dp" />
@@ -22,7 +22,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Professeur"
+        android:text="@string/Professeur"
         android:id="@+id/buttonProfesseur"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.30"
@@ -32,7 +32,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Eleve"
+        android:text="@string/Eleve"
         android:id="@+id/buttonEleve"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.30"
@@ -41,7 +41,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Famille"
+        android:text="@string/Famille"
         android:id="@+id/buttonFamille"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.30"
