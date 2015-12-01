@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Cours Ado</string>
+    <string name="login_professeur">Professeur | Se connecter</string>
 </resources>

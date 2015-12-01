@@ -13,15 +13,30 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextEmailProf"
+        android:id="@+id/EmailProf"
         android:hint="E-mail"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:singleLine="true"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editTextPasswordProf"
-        android:hint="Mot de passe"/>
+        android:id="@+id/PasswordProf"
+        android:hint="Mot de passe"
+        android:maxLines="1"
+        android:singleLine="true"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Se connecter"
+        android:id="@+id/BoutonConnexionProfesseur"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"/>
+
 </LinearLayout>
