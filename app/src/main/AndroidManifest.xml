@@ -18,6 +18,7 @@
         <activity android:name=".espaceConnexionProfesseur"
             android:label="@string/login_professeur"/>
 
+        <activity android:name=".listeEleve" />
     </application>
 
 </manifest>
