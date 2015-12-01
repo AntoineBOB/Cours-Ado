@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".espaceConnexionProfesseur"
             android:label="@string/login_professeur"/>
+
     </application>
 
 </manifest>
