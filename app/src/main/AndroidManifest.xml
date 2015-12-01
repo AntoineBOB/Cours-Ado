@@ -15,10 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".espaceConnexionProfesseur"
-            android:label="@string/login_professeur"/>
-
+        <activity
+            android:name=".espaceConnexionProfesseur"
+            android:label="@string/login_professeur" />
         <activity android:name=".listeEleve" />
+        <activity android:name=".choixProfesseur"></activity>
     </application>
 
 </manifest>
