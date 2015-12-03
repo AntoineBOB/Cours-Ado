@@ -8,6 +8,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.cours_ado.coursado.listeEleve">
+    tools:context="com.cours_ado.coursado.listeEleve"
+    android:weightSum="1">
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="177dp"
+        android:id="@+id/listView"
+        android:layout_weight="0.21"
+        android:drawSelectorOnTop="false" />
+
+    <Button
+        android:layout_width="163dp"
+        android:layout_height="29dp"
+        android:text="@string/logout"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.11" />
 </LinearLayout>
