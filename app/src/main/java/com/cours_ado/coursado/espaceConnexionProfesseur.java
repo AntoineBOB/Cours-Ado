@@ -8,11 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -38,7 +42,11 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
 
                 if (!emailProf.isEmpty() && !pwProf.isEmpty()) {
                     // login user
-                    checkLogin(emailProf, pwProf);
+                    try {
+                        checkLogin(emailProf, pwProf);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Veuillez entrez vos identifiants et mot de passe", Toast.LENGTH_LONG).show();
@@ -49,7 +57,10 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
             }
         });
     }
-    public void checkLogin(String Email, String mdp){
-
+    public void checkLogin(String Email, String mdp) throws IOException {
+        URL url_Login = new URL(AppConfig.URL_Login);
+        HttpURLConnection Conn = (HttpURLConnection) url_Login.openConnection();
+        Conn.setDoOutput(true);
+        //OutputStream paramètres = new DataOutputStream();
     }
 }
