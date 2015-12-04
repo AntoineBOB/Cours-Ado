@@ -3,17 +3,20 @@ package com.cours_ado.coursado;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.HttpURLConnection;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 public class espaceConnexionProfesseur extends AppCompatActivity {
 
@@ -46,26 +49,7 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
             }
         });
     }
-    public void checkLogin(String Email,String mdp){
+    public void checkLogin(String Email, String mdp){
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("Email",Email);
-        params.put("Password",mdp);
-
-        try{
-            URL URL_LOGIN = new URL(AppConfig.URL_Login);
-            HttpURLConnection conn = (HttpURLConnection) URL_LOGIN.openConnection();
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-
-        }
-        catch (MalformedURLException MalUrlE){
-            MalUrlE.getMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
