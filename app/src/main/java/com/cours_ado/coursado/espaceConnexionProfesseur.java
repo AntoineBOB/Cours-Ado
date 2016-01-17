@@ -31,7 +31,6 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
         Button boutonConnexionProf = (Button) findViewById(R.id.BoutonConnexionProfesseur);
         boutonConnexionProf.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //10.0.2.2
                 //EditText de l'email et du mot de passe
                 EditText emailProfEdit = (EditText) findViewById(R.id.EmailProf);
                 EditText pwProfEdit = (EditText) findViewById(R.id.PasswordProf);

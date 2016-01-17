@@ -15,9 +15,19 @@ public class choixProfesseur extends AppCompatActivity {
         Button boutonChoixListeEleve = (Button) findViewById(R.id.buttonListeEleve);
         boutonChoixListeEleve.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent listeEleve = new Intent(choixProfesseur.this,listeEleve.class);
+                Intent listeEleve = new Intent(choixProfesseur.this, listeEleve.class);
                 startActivity(listeEleve);
             }
+
+        });
+
+        Button boutonChoixSaisirBillet = (Button) findViewById(R.id.buttonSaisirTicket);
+        boutonChoixSaisirBillet.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent saisirBillet = new Intent(choixProfesseur.this,SaisirBillet.class);
+                startActivity(saisirBillet);
+            }
+
         });
     }
 }
