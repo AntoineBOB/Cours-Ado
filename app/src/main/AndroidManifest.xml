@@ -26,7 +26,7 @@
         <activity
             android:name=".choixProfesseur"
             android:label="@string/Professeur" />
-        <activity android:name=".SaisirBillet"></activity>
+        <activity android:name=".SaisirBillet" />
     </application>
 
 </manifest>

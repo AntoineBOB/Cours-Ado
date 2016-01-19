@@ -62,11 +62,23 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
         });
     }
     public void checkLogin(String email, String mdp) throws IOException {
-        URL url_Login = new URL(AppConfig.URL_Test);
+        URL url_Login = new URL("http://google.fr/"/*AppConfig.URL_Login*/);
         HttpURLConnection conn = (HttpURLConnection) url_Login.openConnection();
-        /*conn.connect();
-        conn.disconnect();*/
-        Intent inten = new Intent(this,choixProfesseur.class);
-        startActivity(inten);
+        conn.setRequestMethod("POST");
+        conn.setDoInput(true);
+        conn.connect();
+        //conn.getInputStream();
+        if( conn.getResponseCode() == HttpURLConnection.HTTP_OK ){
+            InputStream is = conn.getInputStream();
+            // do something with the data here
+            //is.read();
+        }else{
+            InputStream err = conn.getErrorStream();
+            // err may have useful information.. but could be null see javadocs for more information
+        }
+
+        /*conn.disconnect();*/
+        //Intent inten = new Intent(this,choixProfesseur.class);
+        //startActivity(inten);
     }
 }
