@@ -16,7 +16,8 @@
         android:layout_height="177dp"
         android:id="@+id/listView"
         android:layout_weight="0.21"
-        android:drawSelectorOnTop="false" />
+        android:drawSelectorOnTop="false"
+        tools:listitem="@android:layout/activity_list_item" />
 
     <Button
         android:layout_width="163dp"
