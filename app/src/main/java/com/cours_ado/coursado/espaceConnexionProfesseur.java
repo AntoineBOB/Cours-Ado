@@ -1,7 +1,11 @@
 package com.cours_ado.coursado;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -24,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -37,6 +43,7 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_espace_connexion_professeur);
+
         Button boutonConnexionProf = (Button) findViewById(R.id.BoutonConnexionProfesseur);
         boutonConnexionProf.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -50,35 +57,67 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
 
                 if (!emailProf.isEmpty() && !pwProf.isEmpty()) {
                     try {
-                        checkLogin(emailProf, pwProf);
+                        ConnectivityManager aConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo aNetworkInfo = aConnectivityManager.getActiveNetworkInfo();
+                        if (aNetworkInfo != null && aNetworkInfo.isConnected()){
+                                checkLogin(emailProf, pwProf);
+                        }else{
+                            Toast.makeText(espaceConnexionProfesseur.this, "La connexion Internet a été perdue", Toast.LENGTH_LONG).show();
+                        }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Veuillez entrez vos identifiants et mot de passe", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Veuillez entrez vos identifiants et mot de passe", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
     public void checkLogin(String email, String mdp) throws IOException {
-        URL url_Login = new URL("http://google.fr/"/*AppConfig.URL_Login*/);
-        HttpURLConnection conn = (HttpURLConnection) url_Login.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setDoInput(true);
-        conn.connect();
-        //conn.getInputStream();
-        if( conn.getResponseCode() == HttpURLConnection.HTTP_OK ){
-            InputStream is = conn.getInputStream();
-            // do something with the data here
-            //is.read();
-        }else{
-            InputStream err = conn.getErrorStream();
-            // err may have useful information.. but could be null see javadocs for more information
+        new myDownloadTask().execute();
+    }
+    public class myDownloadTask extends AsyncTask<Void,String,Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            try {
+                try {
+                    URL url = new URL(AppConfig.URL_Test);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    String code = String.valueOf(urlConnection.getResponseCode());
+                    /*InputStream in = url.openStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }*/
+                    publishProgress(code);
+                    urlConnection.disconnect();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
 
-        /*conn.disconnect();*/
-        //Intent inten = new Intent(this,choixProfesseur.class);
-        //startActivity(inten);
+        @Override
+        protected void onProgressUpdate(String... param){
+            TextView tv = (TextView) findViewById(R.id.textView3);
+            for(String para : param){
+                tv.setText(para);
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(Void unused){
+            Toast.makeText(espaceConnexionProfesseur.this,"Fini",Toast.LENGTH_SHORT).show();
+        }
     }
+
 }
