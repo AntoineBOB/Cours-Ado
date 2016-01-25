@@ -84,17 +84,30 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
 
             try {
                 try {
-                    URL url = new URL(AppConfig.URL_Test);
+                    URL url = new URL(AppConfig.URL_Login);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    String code = String.valueOf(urlConnection.getResponseCode());
-                    /*InputStream in = url.openStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    StringBuilder result = new StringBuilder();
-                    String line;
-                    while((line = reader.readLine()) != null) {
-                        result.append(line);
-                    }*/
-                    publishProgress(code);
+                        if(urlConnection.getResponseCode()==HttpURLConnection.HTTP_OK) {
+                            InputStream in = url.openStream();
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                            StringBuilder result = new StringBuilder();
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                result.append(line);
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(result.toString());
+                                if(jsonObject.getString("error").equals("false")){
+                                    String nomUtilisateur = jsonObject.getString("nom");
+                                    String prenomUtilisateur = jsonObject.getString("prenom");
+                                    publishProgress("Bonjour "+ nomUtilisateur+" "+prenomUtilisateur);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    else{
+                            Toast.makeText(espaceConnexionProfesseur.this,"L'adresse n'est pas la bonne",Toast.LENGTH_LONG).show();
+                        }
                     urlConnection.disconnect();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -111,12 +124,6 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
             for(String para : param){
                 tv.setText(para);
             }
-        }
-
-
-        @Override
-        protected void onPostExecute(Void unused){
-            Toast.makeText(espaceConnexionProfesseur.this,"Fini",Toast.LENGTH_SHORT).show();
         }
     }
 
