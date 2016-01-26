@@ -4,11 +4,27 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +67,7 @@ public class listeEleve extends AppCompatActivity {
         public String getPrenom() {
             return prenom;
         }
-    };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +75,11 @@ public class listeEleve extends AppCompatActivity {
         setContentView(R.layout.activity_liste_eleve);
 
         this.listeView = (ListView) findViewById(R.id.listView);
+        CreateListe();
     }
-    private void populateListe(){
+    private void CreateListe(){
+        ListeElevTask task = new ListeElevTask();
+        task.execute();
 
 
     }
@@ -70,33 +89,86 @@ public class listeEleve extends AppCompatActivity {
         @Override
         protected List<Eleve> doInBackground(Void ... params)
         {
-            ArrayList<Eleve> eleves = new ArrayList<Eleve>();
-            // pour cette étape nous conservons les "mock-data"
-            eleves.add(new Eleve(1,"Test 1","laura"));
-            eleves.add(new Eleve(2,"Test 2","Bob"));
-            eleves.add(new Eleve(3,"Test 3","Geralt"));
-            eleves.add(new Eleve(4,"Test 4","Sora"));
-            return eleves;
+
+                ArrayList<Eleve> data = new ArrayList<>();
+
+                try {
+                    try {
+                        URL url = new URL(AppConfig.URL_ListeEleve);
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        if(urlConnection.getResponseCode()==HttpURLConnection.HTTP_OK) {
+                            InputStream in = url.openStream();
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                            StringBuilder result = new StringBuilder();
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                result.append(line);
+                            }
+                            try {
+                                JSONObject json = new JSONObject(result.toString());
+                                JSONArray jsonArray = json.getJSONArray("eleve");
+                                for(int i=0;i<jsonArray.length();i++){
 
 
+                                    JSONObject json_data =jsonArray.getJSONObject(i);
+                                    Eleve eleve= new Eleve();
+                                    eleve.setId(json_data.getInt("id"));
+                                    eleve.setNom(json_data.getString("nom"));
+                                    eleve.setPrenom(json_data.getString("prenom"));
+                                    data.add(eleve);
+
+
+                                }
+                            } catch (JSONException e ) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else{
+                            Toast.makeText(listeEleve.this,"L'adresse n'est pas la bonne",Toast.LENGTH_LONG).show();
+                        }
+                        urlConnection.disconnect();
+                    } catch (MalformedURLException e ) {
+                        e.printStackTrace();
+                    }
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return data;
         }
-        protected void onPostExecute(List<Eleve> eleves)
+        protected void onPostExecute(List<Eleve> data)
         {
-            if (eleves != null){
-                listeEleve.this.updateListe(eleves);
+            if (data != null){
+                listeEleve.this.updateListe(data);
             }else {
                 Toast.makeText(listeEleve.this,"Erreur de récupération des données",Toast.LENGTH_LONG).show();
             }
         }
-    }
-    private void updateListe(List<Eleve> eleves){
 
     }
-    /*private static class EleveAdapter extends ArrayAdapter<Eleve>{
-        private NumberFormat popFormat;
+    private void updateListe(List<Eleve> eleves){
+        EleveAdapter adapter = new EleveAdapter(this,eleves);
+        this.listeView.setAdapter(adapter);
+
+    }
+    private static class EleveAdapter extends ArrayAdapter<Eleve>{
         public EleveAdapter(Context contexte, List<Eleve> eleves){
-            super(contexte, R.layout.activity_list_item,R.id.);
+            super(contexte, R.layout.activity_list_item,R.id.nom,eleves);
+
         }
-    }*/
+        public View getView (int position, View convertView, ViewGroup parent){
+
+            // on laisse ArrayAdapter faire le boulot de création de la view
+            View ret = super.getView(position,convertView,parent);
+            // on va juste mettre ici les bonnes données au bon endroit
+            Eleve eleve = getItem(position);
+            TextView nameView = (TextView) ret.findViewById(R.id.nom);
+            nameView.setText(eleve.getNom());
+
+            TextView prenomView = (TextView) ret.findViewById(R.id.prenom);
+            prenomView.setText(eleve.getPrenom());
+
+            return ret;
+        }
+    }
 
 }

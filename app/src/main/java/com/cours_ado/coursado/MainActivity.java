@@ -21,5 +21,14 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.finish();
             }
         });
+        Button boutonEleve = (Button) findViewById(R.id.buttonEleve);
+        boutonEleve.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                Intent connexionEleve=new Intent(MainActivity.this, listeEleve.class);
+                startActivity(connexionEleve);
+                MainActivity.this.finish();
+
+            }
+        });
     }
 }
