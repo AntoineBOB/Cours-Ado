@@ -30,6 +30,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class espaceConnexionProfesseur extends AppCompatActivity {
+    public static String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
         private String mdp;
         private String user;
 
+
         public myDownloadTask(String mdp, String user){
             this.mdp=mdp;
             this.user=user;
@@ -81,6 +83,7 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+
 
             try {
                 try {
@@ -104,8 +107,11 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
                                 if(jsonObject.getString("error").equals("false")){
                                     String nomUtilisateur = jsonObject.getString("nom");
                                     String prenomUtilisateur = jsonObject.getString("prenom");
-                                    publishProgress("Bonjour "+ nomUtilisateur+" "+prenomUtilisateur);
+                                    int idUilisateur = jsonObject.getInt("id");
+                                    publishProgress("Bonjour " + nomUtilisateur + " " + prenomUtilisateur);
                                     Intent intent = new Intent(espaceConnexionProfesseur.this,choixProfesseur.class);
+                                    intent.putExtra(id,idUilisateur);
+
                                     startActivity(intent);
                                 }
                                 else{

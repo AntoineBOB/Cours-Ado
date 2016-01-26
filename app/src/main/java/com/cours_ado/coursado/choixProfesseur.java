@@ -7,15 +7,18 @@ import android.view.View;
 import android.widget.Button;
 
 public class choixProfesseur extends AppCompatActivity {
-
+    public static String message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choix_professeur);
+        Intent intent = getIntent();
+        final int id=intent.getIntExtra(espaceConnexionProfesseur.id,0);
         Button boutonChoixListeEleve = (Button) findViewById(R.id.buttonListeEleve);
         boutonChoixListeEleve.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent listeEleve = new Intent(choixProfesseur.this, listeEleve.class);
+                listeEleve.putExtra(message,id);
                 startActivity(listeEleve);
             }
 

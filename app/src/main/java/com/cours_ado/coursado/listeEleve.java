@@ -1,6 +1,7 @@
 package com.cours_ado.coursado;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,19 +74,24 @@ public class listeEleve extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_eleve);
-
+        Intent intent = getIntent();
+        int id=intent.getIntExtra(choixProfesseur.message, 0);
         this.listeView = (ListView) findViewById(R.id.listView);
-        CreateListe();
+        CreateListe(id);
     }
-    private void CreateListe(){
-        ListeElevTask task = new ListeElevTask();
+    private void CreateListe(int id){
+        ListeElevTask task = new ListeElevTask(id);
         task.execute();
 
 
     }
     private class ListeElevTask extends AsyncTask<Void,Void,List<Eleve>>
     {
-        // la fonction qui sera effectuée en "background"
+        private int id;
+
+        public ListeElevTask(int id){
+            this.id=id;
+        }
         @Override
         protected List<Eleve> doInBackground(Void ... params)
         {
@@ -94,7 +100,7 @@ public class listeEleve extends AppCompatActivity {
 
                 try {
                     try {
-                        URL url = new URL(AppConfig.URL_ListeEleve);
+                        URL url = new URL(AppConfig.URL_ListeEleve+"?idProf="+this.id);
                         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                         if(urlConnection.getResponseCode()==HttpURLConnection.HTTP_OK) {
                             InputStream in = url.openStream();
@@ -162,10 +168,10 @@ public class listeEleve extends AppCompatActivity {
             // on va juste mettre ici les bonnes données au bon endroit
             Eleve eleve = getItem(position);
             TextView nameView = (TextView) ret.findViewById(R.id.nom);
-            nameView.setText(eleve.getNom());
+            nameView.setText(eleve.getNom()+" ");
 
             TextView prenomView = (TextView) ret.findViewById(R.id.prenom);
-            prenomView.setText(eleve.getPrenom());
+            prenomView.setText(eleve.getPrenom()+" ");
 
             return ret;
         }
