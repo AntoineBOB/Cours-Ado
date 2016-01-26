@@ -29,5 +29,14 @@ public class choixProfesseur extends AppCompatActivity {
             }
 
         });
+
+        Button boutonControleTicket = (Button) findViewById(R.id.buttonControleTicket);
+        boutonControleTicket.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent controleTicket = new Intent(choixProfesseur.this,controleTicket.class);
+                startActivity(controleTicket);
+            }
+
+        });
     }
 }

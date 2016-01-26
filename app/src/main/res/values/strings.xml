@@ -4,14 +4,18 @@
     <string name="login_professeur">Professeur | Se connecter</string>
     <string name="Professeur">Professeur</string>
     <string name="listeEleve">Liste de vos élèves</string>
+    <string name="title_activity_controle_ticket">ControleTicket</string>
 
     <string name="MDP">Mot de passe</string>
     <string name="login">Se connecter</string>
     <string name="Email">Email</string>
     <string name="createTicket">Saisir un ticket</string>
+    <string name="controleTicket">Contrôler le ticket</string>
     <string name="logout">Se déconnecter</string>
 
     <string name="loginAccueil">Se connecter en tant que</string>
     <string name="Eleve">Eleve</string>
     <string name="Famille">Famille</string>
+    <string name="ExplicationControleTicket">Entrez le numéro du ticket afin de vérifier si celui-ci est valide</string>
+
 </resources>

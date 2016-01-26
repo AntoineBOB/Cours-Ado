@@ -79,7 +79,6 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
             this.user=user;
         }
 
-        @TargetApi(Build.VERSION_CODES.KITKAT)
         @Override
         protected Void doInBackground(Void... params) {
 

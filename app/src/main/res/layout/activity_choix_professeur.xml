@@ -17,8 +17,7 @@
         android:text="@string/listeEleve"
         android:id="@+id/buttonListeEleve"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.30"
-        android:layout_marginTop="25dp"/>
+        android:layout_weight="0.30"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -31,7 +30,16 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:text="@string/controleTicket"
+        android:id="@+id/buttonControleTicket"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.30" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:text="@string/logout"
         android:id="@+id/buttonDéconnexion"
-        android:layout_weight="0.30"/>
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.10"/>
 </LinearLayout>
