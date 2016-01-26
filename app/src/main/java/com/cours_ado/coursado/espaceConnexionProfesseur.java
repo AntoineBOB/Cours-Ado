@@ -59,9 +59,9 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
                     try {
                         ConnectivityManager aConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                         NetworkInfo aNetworkInfo = aConnectivityManager.getActiveNetworkInfo();
-                        if (aNetworkInfo != null && aNetworkInfo.isConnected()){
-                                checkLogin(emailProf, pwProf);
-                        }else{
+                        if (aNetworkInfo != null && aNetworkInfo.isConnected()) {
+                            checkLogin(emailProf, pwProf);
+                        } else {
                             Toast.makeText(espaceConnexionProfesseur.this, "La connexion Internet a été perdue", Toast.LENGTH_LONG).show();
                         }
 
@@ -101,7 +101,7 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
                                     String prenomUtilisateur = jsonObject.getString("prenom");
                                     publishProgress("Bonjour "+ nomUtilisateur+" "+prenomUtilisateur);
                                 }
-                            } catch (JSONException e) {
+                            } catch (JSONException e ) {
                                 e.printStackTrace();
                             }
                         }
@@ -109,7 +109,7 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
                             Toast.makeText(espaceConnexionProfesseur.this,"L'adresse n'est pas la bonne",Toast.LENGTH_LONG).show();
                         }
                     urlConnection.disconnect();
-                } catch (MalformedURLException e) {
+                } catch (MalformedURLException  e ) {
                     e.printStackTrace();
                 }
             }catch (IOException e) {

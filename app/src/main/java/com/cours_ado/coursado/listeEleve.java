@@ -16,7 +16,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -83,56 +89,64 @@ public class listeEleve extends AppCompatActivity {
         @Override
         protected List<Eleve> doInBackground(Void ... params)
         {
-            try {
-                ArrayList<Eleve> eleves = new ArrayList<Eleve>();
-                // pour cette étape nous conservons les "mock-data"
-            /*eleves.add(new Eleve(1,"Test 1","laura"));
-            eleves.add(new Eleve(2,"Test 2","Bob"));
-            eleves.add(new Eleve(3,"Test 3","Geralt"));
-            eleves.add(new Eleve(4, "Test 4", "Sora"));
-            return eleves;*/
-            // Etape 1: on récupère les données sous forme de String
-                //String strData = getStringResult("http://10.0.2.2/Cours-Ado/listeEleve.php");
-                // Etape 2: on traduit en JSON
-                //JSONObject jsonData = new JSONObject(strData);
-                //parseListeEleves(jsonData, eleves);
-                return eleves;
-            } catch (Exception ex) {
-                Log.e("ListeElevTask", "Erreur de récupération des données !", ex);
-                return null;
 
-            }
+                ArrayList<Eleve> data = new ArrayList<>();
 
+                try {
+                    try {
+                        URL url = new URL(AppConfig.URL_ListeEleve);
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        if(urlConnection.getResponseCode()==HttpURLConnection.HTTP_OK) {
+                            InputStream in = url.openStream();
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                            StringBuilder result = new StringBuilder();
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                result.append(line);
+                            }
+                            try {
+                                JSONObject json = new JSONObject(result.toString());
+                                JSONArray jsonArray = json.getJSONArray("eleve");
+                                for(int i=0;i<jsonArray.length();i++){
+
+
+                                    JSONObject json_data =jsonArray.getJSONObject(i);
+                                    Eleve eleve= new Eleve();
+                                    eleve.setId(json_data.getInt("id"));
+                                    eleve.setNom(json_data.getString("nom"));
+                                    eleve.setPrenom(json_data.getString("prenom"));
+                                    data.add(eleve);
+
+
+                                }
+                            } catch (JSONException e ) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else{
+                            Toast.makeText(listeEleve.this,"L'adresse n'est pas la bonne",Toast.LENGTH_LONG).show();
+                        }
+                        urlConnection.disconnect();
+                    } catch (MalformedURLException e ) {
+                        e.printStackTrace();
+                    }
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return data;
         }
 
 
-        protected void onPostExecute(List<Eleve> eleves)
+        protected void onPostExecute(List<Eleve> data)
         {
-            if (eleves != null){
-                listeEleve.this.updateListe(eleves);
+            if (data != null){
+                listeEleve.this.updateListe(data);
             }else {
                 Toast.makeText(listeEleve.this,"Erreur de récupération des données",Toast.LENGTH_LONG).show();
             }
         }
 
-        private void parseListeEleves(JSONObject data, ArrayList<Eleve> eleves) throws JSONException
-        {
-            JSONArray jsonArray = data.getJSONArray("liste");
-            for (int i = 0; (i < jsonArray.length()); ++i) {
-                JSONObject jsonPays = jsonArray.getJSONObject(i);
-                Eleve eleve = new Eleve();
-                parseEleve(jsonPays, eleve);
-                eleves.add(eleve);
-            }
-        }
 
-        // encore une fois on sépare la fonction, toute modification de "Pays" ne nécessitera alors que la modification de cette fonction-ci.
-        // a noter que dans l'idéal, la classe "Pays" pourrait fournir elle-même la fonction de parsing depuis un objet JSON.
-        private void parseEleve(JSONObject data, Eleve eleve) throws JSONException
-        {
-            eleve.setNom(data.getString("nom"));
-            eleve.setPrenom(data.getString("prenom"));
-        }
     }
     private void updateListe(List<Eleve> eleves){
         EleveAdapter adapter = new EleveAdapter(this,eleves);
