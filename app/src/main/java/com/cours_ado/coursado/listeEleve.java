@@ -135,8 +135,6 @@ public class listeEleve extends AppCompatActivity {
                 }
                 return data;
         }
-
-
         protected void onPostExecute(List<Eleve> data)
         {
             if (data != null){
@@ -145,7 +143,6 @@ public class listeEleve extends AppCompatActivity {
                 Toast.makeText(listeEleve.this,"Erreur de récupération des données",Toast.LENGTH_LONG).show();
             }
         }
-
 
     }
     private void updateListe(List<Eleve> eleves){
