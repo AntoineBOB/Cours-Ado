@@ -55,7 +55,7 @@ public class espaceConnexionProfesseur extends AppCompatActivity {
                         if (aNetworkInfo != null && aNetworkInfo.isConnected()) {
                             checkLogin(emailProf, pwProf);
                         } else {
-                            Toast.makeText(espaceConnexionProfesseur.this, "Aucune connexion Internet :/", Toast.LENGTH_LONG).show();
+                            Toast.makeText(espaceConnexionProfesseur.this, "Aucune connexion Internet", Toast.LENGTH_LONG).show();
                         }
 
                     } catch (IOException e) {
