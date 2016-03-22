@@ -28,7 +28,9 @@
             android:name=".choixProfesseur"
             android:label="@string/Professeur" />
         <activity android:name=".SaisirBillet" />
-        <activity android:name=".controleTicket"></activity>
+        <activity android:name=".controleTicket" />
+        <activity android:name=".listeCours" />
+        <activity android:name=".NouveauBilan"></activity>
     </application>
 
 </manifest>

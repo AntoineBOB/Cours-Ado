@@ -1,5 +1,6 @@
 package com.cours_ado.coursado;
 
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,19 +30,25 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class listeEleve extends AppCompatActivity {
+
     private ListView listeView;
+
     public static class Eleve {
+        //classe eleve
         private int id;
         private String nom;
         private String prenom;
+
 
         public Eleve(int id, String nom, String prenom){
             this.id=id;
             this.nom=nom;
             this.prenom=prenom;
+
         }
         public Eleve()
         {
@@ -70,14 +79,29 @@ public class listeEleve extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_eleve);
         Intent intent = getIntent();
-        int id=intent.getIntExtra(choixProfesseur.message, 0);
+        final int id=intent.getIntExtra(choixProfesseur.message, 0);
         this.listeView = (ListView) findViewById(R.id.listView);
         CreateListe(id);
+        listeView.setOnItemClickListener(new OnItemClickListener(){
+            public void onItemClick(AdapterView<?> arg0, View view, int position,long itemID){
+                //on prend l'id de l'eleve sur lequel on a cliquer.
+                Eleve e =(Eleve) listeView.getItemAtPosition(position);
+                Intent listCours = new Intent(listeEleve.this, listeCours.class);
+                listCours.putExtra("idProf",id);
+                listCours.putExtra("idEleve",e.getId());
+                listCours.putExtra("nomEleve",e.getNom());
+                listCours.putExtra("prenomEleve",e.getPrenom());
+                startActivity(listCours);
+
+
+            }
+        });
     }
     private void CreateListe(int id){
         ListeElevTask task = new ListeElevTask(id);
@@ -115,15 +139,13 @@ public class listeEleve extends AppCompatActivity {
                                 JSONArray jsonArray = json.getJSONArray("eleve");
                                 for(int i=0;i<jsonArray.length();i++){
 
-
+                                    //on enregistre la liste des Eleves un par un.
                                     JSONObject json_data =jsonArray.getJSONObject(i);
                                     Eleve eleve= new Eleve();
                                     eleve.setId(json_data.getInt("id"));
                                     eleve.setNom(json_data.getString("nom"));
                                     eleve.setPrenom(json_data.getString("prenom"));
                                     data.add(eleve);
-
-
                                 }
                             } catch (JSONException e ) {
                                 e.printStackTrace();
@@ -151,12 +173,13 @@ public class listeEleve extends AppCompatActivity {
         }
 
     }
-    private void updateListe(List<Eleve> eleves){
+    private void updateListe(List<Eleve> eleves) {
         EleveAdapter adapter = new EleveAdapter(this,eleves);
+        //CoursAdapter adapter2 =
         this.listeView.setAdapter(adapter);
 
     }
-    private static class EleveAdapter extends ArrayAdapter<Eleve>{
+    private class EleveAdapter extends ArrayAdapter<Eleve>{
         public EleveAdapter(Context contexte, List<Eleve> eleves){
             super(contexte, R.layout.activity_list_item,R.id.nom,eleves);
 
@@ -164,17 +187,17 @@ public class listeEleve extends AppCompatActivity {
         public View getView (int position, View convertView, ViewGroup parent){
 
             // on laisse ArrayAdapter faire le boulot de création de la view
-            View ret = super.getView(position,convertView,parent);
+            View ret = super.getView(position, convertView, parent);
             // on va juste mettre ici les bonnes données au bon endroit
             Eleve eleve = getItem(position);
             TextView nameView = (TextView) ret.findViewById(R.id.nom);
-            nameView.setText(eleve.getNom()+" ");
+            nameView.setText(eleve.getNom()+" "+eleve.getPrenom()+" ");
 
-            TextView prenomView = (TextView) ret.findViewById(R.id.prenom);
-            prenomView.setText(eleve.getPrenom()+" ");
 
             return ret;
         }
     }
+
+
 
 }

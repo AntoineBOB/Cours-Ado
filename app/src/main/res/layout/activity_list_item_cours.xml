@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:useDefaultMargins="true"
+    android:columnCount="6"
+    android:layout_centerHorizontal="true"
+    android:weightSum="6">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_columnSpan="1"
+            android:textSize="11dp"
+            android:text="Matiere" />
+
+
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Niveau"
+            android:textSize="11dp"
+            android:id="@+id/textView3" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="N°Inscription"
+            android:textSize="11dp"
+            android:id="@+id/textView4" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Duree ticket"
+            android:textSize="11dp"
+            android:id="@+id/textView5"
+         />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Heures val."
+            android:textSize="11dp"
+            android:id="@+id/textView6" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Bilan"
+            android:textSize="11dp"
+            android:id="@+id/textView7" />
+
+
+
+        <TextView
+            android:id="@+id/matiere"
+            android:layout_columnSpan="1"
+            android:textSize="11dp"
+            android:text="Matiere" />
+
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Niveau"
+            android:textSize="11dp"
+            android:id="@+id/niveau" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_row="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="N°Inscription"
+            android:textSize="11dp"
+            android:id="@+id/numInscription" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Duree ticket"
+            android:textSize="11dp"
+            android:id="@+id/dureeTicket"
+             />
+
+        <TextView
+            android:layout_columnSpan="1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Heures val."
+            android:textSize="11dp"
+        android:id="@+id/heuresVal" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Bilan"
+            android:textSize="11dp"
+            android:id="@+id/bilan" />
+
+</GridLayout>
