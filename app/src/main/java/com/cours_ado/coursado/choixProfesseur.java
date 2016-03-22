@@ -41,5 +41,12 @@ public class choixProfesseur extends AppCompatActivity {
             }
 
         });
+
+        Button boutonDeconnexion = (Button) findViewById(R.id.buttonDéconnexion);
+        boutonDeconnexion.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,6 +87,15 @@ public class listeEleve extends AppCompatActivity {
         setContentView(R.layout.activity_liste_eleve);
         Intent intent = getIntent();
         final int id=intent.getIntExtra(choixProfesseur.message, 0);
+
+        Button boutonRetour = (Button) findViewById(R.id.button);
+        boutonRetour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
         this.listeView = (ListView) findViewById(R.id.listView);
         CreateListe(id);
         listeView.setOnItemClickListener(new OnItemClickListener(){
