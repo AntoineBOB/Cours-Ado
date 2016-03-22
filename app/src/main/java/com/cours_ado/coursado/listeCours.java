@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,6 +113,16 @@ public class listeCours extends AppCompatActivity {
         String nomEleve=getIntent().getExtras().getString("nomEleve");
         String prenomEleve=getIntent().getExtras().getString("prenomEleve");
         CreateListe(idProf, idEleve);
+
+        Button boutonRetour = (Button) findViewById(R.id.buttonRetour);
+        boutonRetour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
         TextView text = (TextView) findViewById(R.id.textViewNom);
         text.setText("Liste des inscriptions avec l'éléve : "+nomEleve);
         this.listeViewCours = (ListView) findViewById(R.id.listView2);
