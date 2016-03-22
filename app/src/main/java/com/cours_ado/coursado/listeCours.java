@@ -131,6 +131,8 @@ public class listeCours extends AppCompatActivity {
                 boite3.setNeutralButton("Ajouter un bilan", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
+                        Intent intent =new Intent(listeCours.this, NouveauBilan.class);
+                        startActivity(intent);
 
                     }});
                 boite3.setNegativeButton("Ne rien faire", new DialogInterface.OnClickListener() {
