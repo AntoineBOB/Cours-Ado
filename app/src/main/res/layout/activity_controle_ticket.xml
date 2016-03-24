@@ -29,4 +29,11 @@
         android:layout_height="wrap_content"
         android:text="@string/controleTicket"
         android:id="@+id/buttonControleTicket2"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/retour"
+        android:id="@+id/buttonRetourControleTicket"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

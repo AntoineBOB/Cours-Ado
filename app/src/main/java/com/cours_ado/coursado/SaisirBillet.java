@@ -30,6 +30,13 @@ public class SaisirBillet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saisir_billet);
 
+        Button boutonRetour = (Button) findViewById(R.id.buttonRetourSaisieBillet);
+        boutonRetour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         Button boutonSaisie = (Button) findViewById(R.id.button2);
         boutonSaisie.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

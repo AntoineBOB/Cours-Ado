@@ -49,6 +49,12 @@ public class controleTicket extends AppCompatActivity {
             }
         });
 
+        Button boutonRetour = (Button) findViewById(R.id.buttonRetourControleTicket);
+        boutonRetour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void checkTicket(String codeBarre) {

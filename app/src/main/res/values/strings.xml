@@ -18,4 +18,6 @@
     <string name="Famille">Famille</string>
     <string name="ExplicationControleTicket">Entrez le numéro du ticket afin de vérifier si celui-ci est valide</string>
 
+    <string name="retour">Retour</string>
+
 </resources>

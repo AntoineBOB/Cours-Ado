@@ -88,12 +88,12 @@ public class listeEleve extends AppCompatActivity {
         Intent intent = getIntent();
         final int id=intent.getIntExtra(choixProfesseur.message, 0);
 
-        /*Button boutonRetour = (Button) findViewById(R.id.button);
+        Button boutonRetour = (Button) findViewById(R.id.buttonRetourListeEleve);
         boutonRetour.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
             }
-        });*/
+        });
 
 
         this.listeView = (ListView) findViewById(R.id.listView);

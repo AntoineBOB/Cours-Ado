@@ -20,10 +20,10 @@
         tools:listitem="@android:layout/activity_list_item" />
 
     <Button
-        android:layout_width="163dp"
+        android:layout_width="fill_parent"
         android:layout_height="29dp"
-        android:text="@string/logout"
-        android:id="@+id/button"
+        android:text="@string/retour"
+        android:id="@+id/buttonRetourListeEleve"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.11" />
 </LinearLayout>
