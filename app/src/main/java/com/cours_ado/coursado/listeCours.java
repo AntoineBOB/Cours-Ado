@@ -35,6 +35,7 @@ import java.util.List;
 public class listeCours extends AppCompatActivity {
     private ListView listeViewCours;
     private static final int DIALOG_ALERT = 10;
+    public static String id_inscription_prof;
 
     public static class Cours {
         //classe cours
@@ -108,7 +109,7 @@ public class listeCours extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_cours);
-        int idProf=getIntent().getExtras().getInt("idProf");
+        final int idProf=getIntent().getExtras().getInt("idProf");
         int idEleve=getIntent().getExtras().getInt("idEleve");
         String nomEleve=getIntent().getExtras().getString("nomEleve");
         String prenomEleve=getIntent().getExtras().getString("prenomEleve");
@@ -143,8 +144,9 @@ public class listeCours extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent =new Intent(listeCours.this, NouveauBilan.class);
+                        intent.putExtra("id_inscription_prof",id_inscription_prof);
+                        intent.putExtra("idprof",idProf);
                         startActivity(intent);
-
                     }});
                 boite3.setNegativeButton("Ne rien faire", new DialogInterface.OnClickListener() {
 
@@ -202,6 +204,7 @@ public class listeCours extends AppCompatActivity {
 
                                 //on renregistre les cours un par un aussi.
                                 JSONObject json_data =jsonArray.getJSONObject(b);
+                                id_inscription_prof=json_data.getString("id");
                                 Cours cour= new Cours();
                                 cour.setNumInscription(json_data.getString("num_inscription"));
                                 cour.setNbHeures(json_data.getString("nbHeures"));

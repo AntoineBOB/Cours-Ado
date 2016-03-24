@@ -8,4 +8,6 @@ public class AppConfig{
     public final static String URL_ListeCours ="http://10.0.2.2/Cours-Ado/listeCours.php";
     public final static String URL_ValidateTicket ="http://10.0.2.2/Cours-Ado/validationTicket.php";
     public final static String URL_SaisirTicket ="http://10.0.2.2/Cours-Ado/saisirBillet.php";
+    public final static String URL_Horaires ="http://10.0.2.2/Cours-Ado/listeHoraires.php";
+
 }
