@@ -46,14 +46,22 @@ public class NouveauBilan extends AppCompatActivity {
 
 
         //On complete les listes
-        new myDownloadTask(id_inscription_prof,idProf).execute();
+        new HorairesTask(id_inscription_prof,idProf).execute();
+
+
+        Button boutonAjoutBilan = (Button) findViewById(R.id.buttonAjouterBilan);
+        boutonAjoutBilan.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(NouveauBilan.this,"En cours de développement",Toast.LENGTH_LONG).show();
+            }
+        });
     }
-    public class myDownloadTask extends AsyncTask<Void,String,List<String>> {
+    public class HorairesTask extends AsyncTask<Void,String,List<String>> {
 
         private String idInscription;
         private int idProf;
 
-        public myDownloadTask(String idInscription, int idProf){
+        public HorairesTask(String idInscription, int idProf){
             this.idInscription=idInscription;
             this.idProf=idProf;
         }
@@ -171,4 +179,6 @@ public class NouveauBilan extends AppCompatActivity {
         }
 
     }
+
+
 }

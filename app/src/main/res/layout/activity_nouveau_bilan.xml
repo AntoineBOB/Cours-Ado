@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ajouter le bilan"
-                    android:id="@+id/buttonAjouter"
+                    android:id="@+id/buttonAjouterBilan"
                     android:layout_gravity="center_vertical"
                     android:layout_alignParentBottom="true" />
 
@@ -130,8 +130,8 @@
                     android:id="@+id/buttonRetour"
                     android:layout_gravity="center_vertical"
                     android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/buttonAjouter"
-                    android:layout_toEndOf="@+id/buttonAjouter" />
+                    android:layout_toRightOf="@+id/buttonAjouterBilan"
+                    android:layout_toEndOf="@+id/buttonAjouterBilan" />
             </RelativeLayout>
 
         </LinearLayout>
