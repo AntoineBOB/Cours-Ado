@@ -1,7 +1,6 @@
 package com.cours_ado.coursado;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -131,16 +131,32 @@ public class listeCours extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View view, int position, long itemID) {
                 AlertDialog.Builder boite3;
                 boite3 = new AlertDialog.Builder(listeCours.this);
-                boite3.setTitle("Coucou");
-                boite3.setMessage("Message");
+                boite3.setTitle("Que voulez-vous faire ?");
+                boite3.setMessage("Vous avez cliquer sur une inscription, vous avez le choix entre lire/telecharger ses bilans, ajouter un bilan ou ne rien faire et revenir sur la page des inscriptions.");
                 boite3.setPositiveButton("Voir/telecharger les bilans", new DialogInterface.OnClickListener() {
 
-                            public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which) {
 
-                            }
+                        String filename = "david";
+                        String filecontent = "Contenido";
+                        CreationPdf fop = new CreationPdf();
+                        if (fop.write(filename, filecontent)) {
+                            Toast.makeText(getApplicationContext(),
+                                    filename + ".pdf created", Toast.LENGTH_SHORT)
+                                    .show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "I/O error",
+                                    Toast.LENGTH_SHORT).show();
                         }
-                );
-                boite3.setNeutralButton("Ajouter un bilan", new DialogInterface.OnClickListener() {
+
+
+                        }
+                    }
+
+                    );
+                    boite3.setNeutralButton("Ajouter un bilan", new DialogInterface.OnClickListener()
+
+                            {
 
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent =new Intent(listeCours.this, NouveauBilan.class);
@@ -150,19 +166,31 @@ public class listeCours extends AppCompatActivity {
                     }});
                 boite3.setNegativeButton("Ne rien faire", new DialogInterface.OnClickListener() {
 
-                            public void onClick(DialogInterface dialog, int which) {
 
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(listeCours.this, NouveauBilan.class);
+                                    startActivity(intent);
+
+                                }
                             }
-                        }
-                );
 
-                boite3.show();
+                    );
+                    boite3.setNegativeButton("Ne rien faire", new DialogInterface.OnClickListener()
+
+                            {
+
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            }
+
+                    );
+
+                    boite3.show();
 
 
-
-
-            }
-        });
+                }
+            });
     }
 
 
