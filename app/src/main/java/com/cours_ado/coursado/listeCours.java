@@ -137,10 +137,9 @@ public class listeCours extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int which) {
 
-                        String filename = "david";
-                        String filecontent = "Contenido";
+                        String filename = "CoursAdoBilan";
                         CreationPdf fop = new CreationPdf();
-                        if (fop.write(filename, filecontent)) {
+                        if (fop.write(filename)) {
                             Toast.makeText(getApplicationContext(),
                                     filename + ".pdf created", Toast.LENGTH_SHORT)
                                     .show();
