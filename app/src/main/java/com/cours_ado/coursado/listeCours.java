@@ -145,6 +145,7 @@ public class listeCours extends AppCompatActivity {
                                 JSONObject json_data =jsonArray.getJSONObject(b);
                                 id_inscription_prof=json_data.getString("id");
                                 Cours cour= new Cours();
+                                cour.setId(json_data.getInt("idInscription"));
                                 cour.setNumInscription(json_data.getString("num_inscription"));
                                 cour.setMatiere(json_data.getString("matiere"));
                                 cour.setNbHeures(json_data.getString("nbHeures"));
