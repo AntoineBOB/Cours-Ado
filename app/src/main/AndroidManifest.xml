@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -13,18 +13,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".espaceConnexionProfesseur"
             android:label="@string/login_professeur">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".listeEleve"
             android:label="@string/listeEleve" />
@@ -34,7 +32,9 @@
         <activity android:name=".SaisirBillet" />
         <activity android:name=".controleTicket" />
         <activity android:name=".listeCours" />
-        <activity android:name=".NouveauBilan"></activity>
+        <activity android:name=".NouveauBilan" />
+        <activity android:name=".listeBilans" />
+        <activity android:name=".modifierBilan"></activity>
     </application>
 
 </manifest>
