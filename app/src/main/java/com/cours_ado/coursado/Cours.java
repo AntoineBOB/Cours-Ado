@@ -5,6 +5,7 @@ package com.cours_ado.coursado;
  */
 public class Cours {
     //classe cours
+    private int id;
     private String numInscription;
     private String nbHeures;
     private String matiere;
@@ -22,6 +23,15 @@ public class Cours {
     {
 
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getMatiere() {
         return matiere;
     }
