@@ -43,7 +43,7 @@ public class listeCours extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_cours);
         final int idProf=getIntent().getExtras().getInt("idProf");
-        int idEleve=getIntent().getExtras().getInt("idEleve");
+        final int idEleve=getIntent().getExtras().getInt("idEleve");
         String nomEleve=getIntent().getExtras().getString("nomEleve");
         String prenomEleve=getIntent().getExtras().getString("prenomEleve");
         CreateListe(idProf, idEleve);
@@ -82,6 +82,7 @@ public class listeCours extends AppCompatActivity {
                         Intent intent =new Intent(listeCours.this, NouveauBilan.class);
                         intent.putExtra("id_inscription_prof",id_inscription_prof);
                         intent.putExtra("idprof",idProf);
+                        intent.putExtra("idEleve",idEleve);
                         startActivity(intent);
                     }});
 
