@@ -36,6 +36,7 @@ public class listeCours extends AppCompatActivity {
     private ListView listeViewCours;
     private static final int DIALOG_ALERT = 10;
     public static String id_inscription_prof;
+    public static int id_inscription;
 
 
     @Override
@@ -83,6 +84,7 @@ public class listeCours extends AppCompatActivity {
                         intent.putExtra("id_inscription_prof",id_inscription_prof);
                         intent.putExtra("idprof",idProf);
                         intent.putExtra("idEleve",idEleve);
+                        intent.putExtra("idInscription",id_inscription);
                         startActivity(intent);
                     }});
 
@@ -154,6 +156,8 @@ public class listeCours extends AppCompatActivity {
                                 cour.setVille(json_data.getString("ville"));
                                 cour.setNiveau(json_data.getString("niveau"));
                                 dataCours.add(cour);
+
+                                id_inscription=cour.getId();
 
                             }
 

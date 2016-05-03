@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +38,7 @@ public class NouveauBilan extends AppCompatActivity {
         final String id_inscription_prof=getIntent().getExtras().getString("id_inscription_prof");
         final int idProf = getIntent().getExtras().getInt("idprof");
         final int idEleve = getIntent().getExtras().getInt("idEleve");
-
+        final int idInscription = getIntent().getExtras().getInt("idInscription");
 
         Button boutonRetour = (Button) findViewById(R.id.buttonRetour);
         boutonRetour.setOnClickListener(new View.OnClickListener() {
@@ -49,12 +51,26 @@ public class NouveauBilan extends AppCompatActivity {
         //On complete les listes
         new HorairesTask(id_inscription_prof,idProf).execute();
 
+        final EditText themesText = (EditText) findViewById(R.id.editText2);
+        final EditText commentairesText = (EditText) findViewById(R.id.editText3);
+        final Spinner spinnerDate = (Spinner) findViewById(R.id.spinner);
+        final Spinner spinnerHeure = (Spinner) findViewById(R.id.spinner2);
+        final Spinner spinnerDuree = (Spinner) findViewById(R.id.spinner3);
+
 
         Button boutonAjoutBilan = (Button) findViewById(R.id.buttonAjouterBilan);
         boutonAjoutBilan.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(NouveauBilan.this,"En cours de développement",Toast.LENGTH_LONG).show();
-                new AjoutBilanTask(id_inscription_prof,idProf);
+                String valueSpinner1 = spinnerDate.getSelectedItem().toString();
+                String valueSpinner2 = spinnerHeure.getSelectedItem().toString();
+                String valueSpinner3 = spinnerDuree.getSelectedItem().toString();
+                String themesString = themesText.getText().toString().trim();
+                String commentairesString = commentairesText.getText().toString().trim();
+                try {
+                    new AjoutBilanTask(idInscription,idProf,id_inscription_prof,idEleve,themesString,commentairesString,valueSpinner1,valueSpinner2,valueSpinner3).execute();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -182,37 +198,59 @@ public class NouveauBilan extends AppCompatActivity {
 
     }
 
-    public class AjoutBilanTask extends AsyncTask<Void,String,List<String>> {
+    public class AjoutBilanTask extends AsyncTask<Void,String,Void> {
 
-        private String idInscription;
+        final String OLD_FORMAT = "dd/mm/yyyy";
+        final String NEW_FORMAT = "yyyy-mm-dd";
+
+        private int idInscription;
         private int idProf;
-        private int idInscriptionProf;
+        private String idInscriptionProf;
         private int idEleve;
         private String dateSeance;
-        private int duree;
+        private String duree;
         private String start;
-        private String end;
+        //private String end;
         private String themes;
         private String commentaire;
-        private int idRDV;
-        private String dateEnregistrement;
 
-        public AjoutBilanTask(String idInscription, int idProf){
+        public AjoutBilanTask(int idInscription, int idProf, String idInscriptionProf, int idEleve, String themes, String commentaire, String dateSeance, String startSeance, String dureeSeance) throws ParseException {
             this.idInscription=idInscription;
             this.idProf=idProf;
+            this.idInscriptionProf = idInscriptionProf;
+            this.idEleve = idEleve;
+            this.themes = themes.replace(" ","_");
+            this.commentaire = commentaire.replace(" ","_");
+
+            SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+            Date d = sdf.parse(dateSeance);
+            sdf.applyPattern(NEW_FORMAT);
+            this.dateSeance = sdf.format(d);
+            this.duree = dureeSeance;
+            this.start = startSeance;
+
         }
 
         @Override
-        protected List<String> doInBackground(Void... params) {
+        protected Void doInBackground(Void... params) {
             List<String> listeDate = new ArrayList<>();
 
             try {
                 try {
-                    String stringurl = AppConfig.URL_AjoutBilan+"?idInscription="+this.idInscription+"&idProf="+this.idProf;
+                    String stringurl = AppConfig.URL_AjoutBilan +
+                            "?idInscription=" + this.idInscription +
+                            "&idProf=" + this.idProf +
+                            "&idInscriptionProf=" + this.idInscriptionProf +
+                            "&idEleve=" + this.idEleve +
+                            "&date=" + this.dateSeance +
+                            "&duree=" + this.duree +
+                            "&start=" + this.start +
+                            "&themes=" + this.themes +
+                            "&commentaires=" + this.commentaire;
                     URL url = new URL(stringurl);
                     //On ouvre la connexion
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    if(urlConnection.getResponseCode()==HttpURLConnection.HTTP_OK) {
+                    if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                         //On récupère les données renvoyées par le script
                         InputStream in = url.openStream();
                         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -222,8 +260,8 @@ public class NouveauBilan extends AppCompatActivity {
                             result.append(line);
                         }
                         try {
-                            //On transforme ces données en Objet json et on verifie si il y a une erreur
                             JSONObject jsonObject = new JSONObject(result.toString());
+                            publishProgress(jsonObject.getString("message"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -234,10 +272,10 @@ public class NouveauBilan extends AppCompatActivity {
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            return listeDate;
+            return null;
         }
 
         @Override
