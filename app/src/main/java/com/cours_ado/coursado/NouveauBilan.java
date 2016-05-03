@@ -251,21 +251,9 @@ public class NouveauBilan extends AppCompatActivity {
                     //On ouvre la connexion
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                        //On récupère les données renvoyées par le script
-                        InputStream in = url.openStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                        StringBuilder result = new StringBuilder();
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            result.append(line);
-                        }
-                        try {
-                            JSONObject jsonObject = new JSONObject(result.toString());
-                            publishProgress(jsonObject.getString("message"));
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                            publishProgress("Le bilan à été ajoutée");
+
                     }
 
                     urlConnection.disconnect();

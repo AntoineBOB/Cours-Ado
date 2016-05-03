@@ -93,10 +93,11 @@ public class listeCours extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //passage à l'intent pour ajouter un bilan
                         Intent intent =new Intent(listeCours.this, NouveauBilan.class);
+                        Cours e =(Cours) listeViewCours.getItemAtPosition(position);
                         intent.putExtra("id_inscription_prof",id_inscription_prof);
                         intent.putExtra("idprof",idProf);
                         intent.putExtra("idEleve",idEleve);
-                        intent.putExtra("idInscription",id_inscription);
+                        intent.putExtra("idInscription",e.getId());
                         startActivity(intent);
                     }});
 

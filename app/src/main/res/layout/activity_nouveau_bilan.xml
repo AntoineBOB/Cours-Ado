@@ -19,12 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Prenom Eleve : Test  Nom Eleve : test"
-                android:id="@+id/textView8" />
 
             <TextView
                 android:layout_width="wrap_content"
