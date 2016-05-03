@@ -24,13 +24,14 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="201dp"
-        android:id="@+id/listView3" />
+        android:id="@+id/listViewBilan"
+        tools:listitem="@layout/activity_list_item_bilan" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
+        android:text="Retour"
+        android:id="@+id/buttonRet"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

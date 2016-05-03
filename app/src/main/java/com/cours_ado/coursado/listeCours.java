@@ -42,12 +42,13 @@ public class listeCours extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_cours);
+        //on recupere les extra passer dans l'intent
         final int idProf=getIntent().getExtras().getInt("idProf");
-        int idEleve=getIntent().getExtras().getInt("idEleve");
+        final int idEleve=getIntent().getExtras().getInt("idEleve");
         String nomEleve=getIntent().getExtras().getString("nomEleve");
         String prenomEleve=getIntent().getExtras().getString("prenomEleve");
         CreateListe(idProf, idEleve);
-
+        //on gere le bouton retour
         Button boutonRetour = (Button) findViewById(R.id.buttonRetour);
         boutonRetour.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,12 +57,14 @@ public class listeCours extends AppCompatActivity {
         });
 
 
-
+        //on ajout du le nom de l'eleve en texte
         TextView text = (TextView) findViewById(R.id.textViewNom);
         text.setText("Liste des inscriptions avec l'éléve : "+nomEleve);
+        //on gere le click de la listView
         this.listeViewCours = (ListView) findViewById(R.id.listView2);
         listeViewCours.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View view, int position, long itemID) {
+            public void onItemClick(AdapterView<?> arg0, View view, final int position, long itemID) {
+                //afichage d'une boite de dialogue au click
                 AlertDialog.Builder boite3;
                 boite3 = new AlertDialog.Builder(listeCours.this);
                 boite3.setTitle("Que voulez-vous faire ?");
@@ -70,6 +73,14 @@ public class listeCours extends AppCompatActivity {
                 boite3.setPositiveButton("Modifier les bilans", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
+                        //passage a l'intent des liste de bilan modifiable
+                        Intent listBilan=new Intent(listeCours.this, listeBilans.class);
+                        Cours e =(Cours) listeViewCours.getItemAtPosition(position);
+                        listBilan.putExtra("idInscription",e.getId());
+                        listBilan.putExtra("idProf",idProf);
+                        listBilan.putExtra("id_inscription_prof",id_inscription_prof);
+                        listBilan.putExtra("idEleve",idEleve);
+                        startActivity(listBilan);
 
                         }
                     }
@@ -79,6 +90,7 @@ public class listeCours extends AppCompatActivity {
                             {
 
                     public void onClick(DialogInterface dialog, int which) {
+                        //passage à l'intent pour ajouter un bilan
                         Intent intent =new Intent(listeCours.this, NouveauBilan.class);
                         intent.putExtra("id_inscription_prof",id_inscription_prof);
                         intent.putExtra("idprof",idProf);
@@ -105,6 +117,7 @@ public class listeCours extends AppCompatActivity {
 
 
     private void CreateListe(int idProf, int idEleve){
+        //methode qui cree les element de la listeview et qui appel l'asyncTask
         ListeCoursTask task = new ListeCoursTask(idProf, idEleve);
         task.execute();
 
@@ -117,11 +130,13 @@ public class listeCours extends AppCompatActivity {
         private int idEleve;
 
         public ListeCoursTask(int idProf, int idEleve){
+            //passage des champs qu'on a besoin
             this.idProf=idProf; this.idEleve=idEleve;
         }
 
         @Override
         protected List<Cours> doInBackground(Void... params) {
+            //methode pour appeler le script php et interpreter le resultat donnée
             ArrayList<Cours> dataCours = new ArrayList<>();
             try {
                 try {
@@ -176,6 +191,7 @@ public class listeCours extends AppCompatActivity {
         protected void onPostExecute(List<Cours> dataCours)
         {
             if (dataCours != null){
+                //on appel l'adapter
                 listeCours.this.updateListe(dataCours);
             }else {
                 Toast.makeText(listeCours.this,"Erreur de récupération des données",Toast.LENGTH_LONG).show();
